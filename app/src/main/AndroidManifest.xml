@@ -14,13 +14,13 @@
         android:theme="@style/Theme.HiltRoomDatabase"
         tools:targetApi="31">
         <activity
-            android:name=".ui.UpdateActivity"
+            android:name=".core_presentation.ui.UpdateActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.AddActivity"
+            android:name=".core_presentation.ui.AddActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".core_presentation.ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

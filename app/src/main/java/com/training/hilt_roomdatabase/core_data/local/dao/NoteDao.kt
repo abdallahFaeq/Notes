@@ -1,4 +1,4 @@
-package com.training.hilt_roomdatabase.db
+package com.training.hilt_roomdatabase.core_data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,21 +6,22 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.training.hilt_roomdatabase.core_data.local.entity.NoteEntity
 
 @Dao
 interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNote(note:NoteEntity)
+    suspend fun insertNote(note: NoteEntity)
 
     @Update
-    fun updateNote(note:NoteEntity)
+    suspend fun updateNote(note: NoteEntity)
 
     @Delete
-    fun deleteNote(note:NoteEntity)
+    suspend fun deleteNote(note: NoteEntity)
 
     @Query("select * from note_table order by note_id desc")
-    fun getAllNotes():MutableList<NoteEntity>
+    suspend fun getAllNotes():MutableList<NoteEntity>
 
     @Query("select * from note_table where note_id like :id")
-    fun getNote(id:Long):NoteEntity
+    suspend fun getNote(id:Long): NoteEntity
 }

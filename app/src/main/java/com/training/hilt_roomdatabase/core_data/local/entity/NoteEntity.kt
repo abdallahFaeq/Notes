@@ -1,4 +1,4 @@
-package com.training.hilt_roomdatabase.db
+package com.training.hilt_roomdatabase.core_data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
