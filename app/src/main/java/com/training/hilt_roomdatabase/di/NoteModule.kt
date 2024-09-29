@@ -7,7 +7,6 @@ import com.training.hilt_roomdatabase.core_data.local.db.NoteDatabase
 import com.training.hilt_roomdatabase.core_data.local.entity.NoteEntity
 import com.training.hilt_roomdatabase.core_data.repository.NoteRepositoryImp
 import com.training.hilt_roomdatabase.core_domain.repository.NoteRepository
-import com.training.hilt_roomdatabase.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +20,7 @@ class NoteModule {
     @Provides
     @Singleton
     fun provideRoomDatabase(@ApplicationContext context:Context) = Room.databaseBuilder(context,
-        NoteDatabase::class.java,Constants.DATABASE_NAME)
+        NoteDatabase::class.java,"note_db")
         .fallbackToDestructiveMigration()
         .build()
 
@@ -33,7 +32,7 @@ class NoteModule {
     fun provideNoteEntity() = NoteEntity()
 
     @Provides
-    fun provideNoteRepositoryInterface(dao:NoteDao):NoteRepository{
+    fun provideNoteRepositoryInterface(dao: NoteDao): NoteRepository {
         return NoteRepositoryImp(dao)
     }
 }

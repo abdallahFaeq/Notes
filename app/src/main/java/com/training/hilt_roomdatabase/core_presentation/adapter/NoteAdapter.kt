@@ -1,7 +1,6 @@
 package com.training.hilt_roomdatabase.core_presentation.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -12,22 +11,16 @@ import com.training.hilt_roomdatabase.databinding.ItemNoteBinding
 import com.training.hilt_roomdatabase.core_data.local.entity.NoteEntity
 
 
-class NoteAdapter (
-     private var onItemClick:(id:Long) -> Unit
+class NoteAdapter(
+    var onItemClick:(Long)->Unit
 ):Adapter<NoteAdapter.NoteHolder>(){
+
+    private var context:Context?=null
     inner class NoteHolder(var binding:ItemNoteBinding):ViewHolder(binding.root){
         fun bind(itemNote : NoteEntity){
             binding.apply {
                 tvTitle.setText(itemNote.title)
                 tvDesc.setText(itemNote.desc)
-
-                root.setOnClickListener{
-                    // add higher order function that navigate and load data to update fragment when click on item
-
-//                    var intent = Intent(context, UpdateActivity::class.java)
-//                    intent.putExtra("note-id",itemNote.id)
-//                    context?.startActivity(intent)
-                }
             }
         }
     }
@@ -46,6 +39,7 @@ class NoteAdapter (
     var differ = AsyncListDiffer(this,diffUtil)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteHolder {
+        context = parent.context
         return NoteHolder(
             ItemNoteBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -61,11 +55,11 @@ class NoteAdapter (
     }
 
     override fun onBindViewHolder(holder: NoteHolder, position: Int) {
-        var noteItem = differ.currentList.get(position)
-        holder.bind(noteItem)
+        var item = differ.currentList[position]
+        holder.bind(item)
 
         holder.itemView.setOnClickListener{
-            onItemClick(noteItem.id)
+            onItemClick(item.id)
         }
     }
 }

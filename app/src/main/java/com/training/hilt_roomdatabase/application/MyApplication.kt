@@ -1,4 +1,4 @@
-package com.training.hilt_roomdatabase
+package com.training.hilt_roomdatabase.application
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
