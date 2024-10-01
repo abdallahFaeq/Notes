@@ -1,7 +1,6 @@
-package com.training.hilt_roomdatabase.core_presentation.ui
+package com.training.hilt_roomdatabase.core_presentation.ui.fragments
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.training.hilt_roomdatabase.R
 import com.training.hilt_roomdatabase.core_data.local.entity.NoteEntity
-import com.training.hilt_roomdatabase.core_data.repository.NoteRepositoryImp
 import com.training.hilt_roomdatabase.core_presentation.viewmodel.UpdateNoteViewModel
 import com.training.hilt_roomdatabase.databinding.FragmentUpdateNoteBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class UpdateNoteFragment : Fragment() {

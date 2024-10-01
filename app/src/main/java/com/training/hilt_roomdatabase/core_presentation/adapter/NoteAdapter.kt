@@ -1,14 +1,18 @@
 package com.training.hilt_roomdatabase.core_presentation.adapter
 
 import android.content.Context
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.training.hilt_roomdatabase.databinding.ItemNoteBinding
 import com.training.hilt_roomdatabase.core_data.local.entity.NoteEntity
+import java.io.File
 
 
 class NoteAdapter(
@@ -19,8 +23,18 @@ class NoteAdapter(
     inner class NoteHolder(var binding:ItemNoteBinding):ViewHolder(binding.root){
         fun bind(itemNote : NoteEntity){
             binding.apply {
-                tvTitle.setText(itemNote.title)
-                tvDesc.setText(itemNote.desc)
+                titleTv.setText(itemNote.title)
+                subtitleTv.setText(itemNote.desc)
+                dateTimeTv.setText(itemNote.dateTime)
+                itemNote.color?.let {
+                    cardView.setCardBackgroundColor(it)
+                }
+
+            if (itemNote.imagePath.isNotEmpty()){
+                Glide.with(itemView)
+                    .load(Uri.parse(itemNote.imagePath))
+                    .into(imageItemImg)
+            }
             }
         }
     }

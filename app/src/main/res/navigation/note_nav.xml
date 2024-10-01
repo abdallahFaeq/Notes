@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/allNotesFragment"
-        android:name="com.training.hilt_roomdatabase.core_presentation.ui.AllNotesFragment"
+        android:name="com.training.hilt_roomdatabase.core_presentation.ui.fragments.AllNotesFragment"
         android:label="fragment_all_notes"
         tools:layout="@layout/fragment_all_notes" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/addNoteFragment"
-        android:name="com.training.hilt_roomdatabase.core_presentation.ui.AddNoteFragment"
+        android:name="com.training.hilt_roomdatabase.core_presentation.ui.fragments.AddNoteFragment"
         android:label="fragment_add_note"
         tools:layout="@layout/fragment_add_note" />
     <fragment
         android:id="@+id/updateNoteFragment"
-        android:name="com.training.hilt_roomdatabase.core_presentation.ui.UpdateNoteFragment"
+        android:name="com.training.hilt_roomdatabase.core_presentation.ui.fragments.UpdateNoteFragment"
         android:label="fragment_update_note"
         tools:layout="@layout/fragment_update_note" >
         <argument

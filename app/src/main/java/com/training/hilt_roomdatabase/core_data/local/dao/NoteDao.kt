@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.training.hilt_roomdatabase.core_data.local.entity.NoteEntity
+import com.training.hilt_roomdatabase.utils.Constants
 
 @Dao
 interface NoteDao {
@@ -19,9 +20,9 @@ interface NoteDao {
     @Delete
     suspend fun deleteNote(note: NoteEntity)
 
-    @Query("select * from note_table order by note_id desc")
+    @Query("select * from ${Constants.NOTE_TABLE} order by ${Constants.NOTE_ID_COLUMN} desc")
     suspend fun getAllNotes():MutableList<NoteEntity>
 
-    @Query("select * from note_table where note_id like :id")
+    @Query("select * from ${Constants.NOTE_TABLE} where ${Constants.NOTE_ID_COLUMN} like :id")
     suspend fun getNote(id:Long): NoteEntity
 }

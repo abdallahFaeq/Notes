@@ -1,4 +1,4 @@
-package com.training.hilt_roomdatabase.core_presentation.ui
+package com.training.hilt_roomdatabase.core_presentation.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.training.hilt_roomdatabase.core_data.local.entity.NoteEntity
 import com.training.hilt_roomdatabase.core_presentation.adapter.NoteAdapter
 import com.training.hilt_roomdatabase.core_presentation.viewmodel.AllNotesViewModel
@@ -49,7 +50,7 @@ class AllNotesFragment : Fragment() {
         initMainRv()
         allNotesViewModel.getAllNotes()
         observeToStates()
-        binding.btnAddNote.setOnClickListener{
+        binding.addNoteBtn.setOnClickListener{
             navigate(AllNotesFragmentDirections.actionAllNotesFragmentToAddNoteFragment())
         }
     }
@@ -79,8 +80,8 @@ class AllNotesFragment : Fragment() {
 
     private fun initMainRv() {
         binding.rvNoteList.apply {
-            layoutManager = LinearLayoutManager(context,
-                LinearLayoutManager.VERTICAL,false)
+            layoutManager = StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL)
             adapter = noteAdapter
         }
     }
