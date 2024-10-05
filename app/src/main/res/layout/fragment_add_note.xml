@@ -92,15 +92,37 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 app:layout_constraintTop_toBottomOf="@id/subtitle_edt" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/delete_image"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/colorDelete"
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="@id/image_img"
+                app:layout_constraintTop_toTopOf="@id/image_img"/>
             <TextView
                 android:id="@+id/link_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
+                android:layout_marginTop="@dimen/_10sdp"
                 app:layout_constraintTop_toBottomOf="@id/image_img"
                 app:layout_constraintStart_toStartOf="@id/subtitle_indicator"
                 app:layout_constraintEnd_toEndOf="@id/subtitle_edt"/>
-
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/delete_auto_link"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/colorDelete"
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/link_tv"
+                app:layout_constraintBottom_toBottomOf="@id/link_tv"/>
             <EditText
                 android:id="@+id/description_edt"
                 android:layout_width="0dp"

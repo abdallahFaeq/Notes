@@ -2,9 +2,11 @@ package com.training.hilt_roomdatabase.core_presentation.ui.fragments
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
@@ -13,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -93,15 +96,6 @@ open class AddNoteFragment : Fragment() {
                     }
                     findNavController().popBackStack()
                 }
-
-                icArrowBackImg.setOnClickListener{
-                    recievedNote?.let {
-                        addNoteViewModel.deleteNote(it)
-                    }
-
-                    findNavController().popBackStack()
-                }
-
             }
         }else{
             // noteId = -1
@@ -171,7 +165,21 @@ open class AddNoteFragment : Fragment() {
                     }
                     findNavController().popBackStack()
                     }
+
+            deleteImage
+                .setOnClickListener{
+                    imagePathUri = null
+                    imageImg
+                        .visibility = View.GONE
+                    deleteImage.visibility = View.GONE
+                }
+
+            deleteAutoLink.setOnClickListener{
+                linkTv.setText("")
+                deleteAutoLink.visibility = View.GONE
             }
+
+        }
         }
 
 
@@ -225,7 +233,6 @@ open class AddNoteFragment : Fragment() {
             .apply {
                 viewColor1
                     .setOnClickListener{
-
                         selectedNoteColor = ContextCompat
                             .getColor(requireContext(),
                                 R.color.colorDefaultNoteColor)
@@ -311,20 +318,33 @@ open class AddNoteFragment : Fragment() {
 
                 addWebLinkLayout
                     .setOnClickListener{
-                        // will navigate to web link
-                        // intent is responsible for transition
-                        // show alert dialog
-                        // get link from it
-                        // when click cancel hide alert
-                        // when click add show link in link tv and make it clickable
-                        // will transition to destination link
                         displayAlertDialog()
-
                     }
+
+                if (noteId>=0){
+                    deleteNoteItemLayout.visibility = View.VISIBLE
+                    deleteNoteItemLayout
+                        .setOnClickListener{
+                            displayAlertDialog(
+                                R.drawable.ic_delete,
+                                resources.getString(R.string.delete),
+                                getString(R.string.are_you_sure_you_want_to_delete_this_note),
+                                getString(R.string.delete_note)
+                            )
+                        }
+                }else{
+                    deleteNoteItemLayout
+                        .visibility = View.GONE
+                }
             }
     }
 
-    private fun displayAlertDialog() {
+    private fun displayAlertDialog(
+        icon:Int?=0,
+        title:String?="",
+        hintMessage:String?="",
+        positiveText:String?="",
+    ) {
         binding
             .apply {
                 var view = LayoutInflater.from(context)
@@ -337,28 +357,55 @@ open class AddNoteFragment : Fragment() {
                 if (dialogBuilder.window  != null){
                     dialogBuilder.window!!.setBackgroundDrawable(ColorDrawable(0))
                 }
+
                 val inputTextET = view.findViewById<EditText>(R.id.web_link_edt)
                 val addButton = view.findViewById<TextView>(R.id.add_button)
                 val cancelButton = view.findViewById<TextView>(R.id.cancel_button)
 
-                addButton
-                    .setOnClickListener{
-                        val inputText = inputTextET
-                            .text
-                            .toString().trim()
-                        if (inputText.isEmpty()){
-                            showToast(requireContext(),
-                                "Enter Url")
-                        }else if (!Patterns.WEB_URL.matcher(inputText).matches()){
-                            showToast(requireContext(),
-                                "Enter valid url")
-                        }else{
-                            linkTv
-                                .setText(inputText)
-                            dialogBuilder.dismiss()
+                if (hintMessage!=""
+                    && title!=""
+                    &&icon!=0
+                    &&positiveText!=""){
+                    var titleTv = view.findViewById<TextView>(R.id.web_link_tv)
+                    var iconImg = view.findViewById<ImageView>(R.id.web_link_img)
+
+                    // set views with delete values
+                    inputTextET.isEnabled = false
+                    inputTextET.setText(hintMessage)
+                    addButton.setText(positiveText)
+                    addButton.setTextColor(resources.getColor(R.color.colorDelete))
+                    titleTv.setText(title)
+                    iconImg.setImageResource(icon!!)
+
+                    addButton.setOnClickListener{
+                        recievedNote?.let {
+                            addNoteViewModel.deleteNote(it)
                         }
 
+                        findNavController().popBackStack()
+                        dialogBuilder.dismiss()
                     }
+                }else{
+                    addButton
+                        .setOnClickListener{
+                            val inputText = inputTextET
+                                .text
+                                .toString().trim()
+                            if (inputText.isEmpty()){
+                                showToast(requireContext(),
+                                    "Enter Url")
+                            }else if (!Patterns.WEB_URL.matcher(inputText).matches()){
+                                showToast(requireContext(),
+                                    "Enter valid url")
+                            }else{
+                                linkTv
+                                    .setText(inputText)
+                                deleteAutoLink.visibility = View.VISIBLE
+                                dialogBuilder.dismiss()
+                            }
+
+                        }
+                }
 
                 cancelButton.setOnClickListener{
                     dialogBuilder.dismiss()
@@ -366,30 +413,6 @@ open class AddNoteFragment : Fragment() {
                 dialogBuilder.show()
             }
     }
-
-    private fun openWebLink(webLink:String) {
-        try {
-            var intent = Intent(Intent.ACTION_VIEW, Uri.parse("www.youtube.com"))
-            if (intent.resolveActivity(
-                requireActivity()
-                    .packageManager
-            )!=null){
-                startActivity(intent)
-            }else{
-                showToast(
-                    requireContext(),
-                    "No applicatoin availble to open this link"
-                )
-            }
-        }catch (e:Exception){
-            showToast(
-                requireContext(),
-                "Unable to open this please sure from web link is correctly"
-            )
-        }
-
-    }
-
 
     var imagePathUri : Uri? = null
     val pickImageLauncher =
@@ -401,8 +424,10 @@ open class AddNoteFragment : Fragment() {
                 // set image too
                 imagePathUri = uri
                 binding.apply {
+                    imageImg.visibility = View.VISIBLE
                     imageImg
                         .setImageURI(imagePathUri)
+                    deleteImage.visibility = View.VISIBLE
                 }
             }
         }

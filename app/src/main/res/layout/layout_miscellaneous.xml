@@ -178,4 +178,28 @@
             android:layout_marginStart="@dimen/_6sdp"
             android:textSize="@dimen/_14ssp"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/delete_note_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_12sdp">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/delete_note_item_img"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_delete"
+            android:tint="@color/colorDelete"/>
+        <TextView
+            android:id="@+id/delete_note_item_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:textColor="@color/colorDelete"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:textSize="@dimen/_14ssp"/>
+    </LinearLayout>
 </LinearLayout>
