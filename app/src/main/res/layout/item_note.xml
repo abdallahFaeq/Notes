@@ -6,10 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardBackgroundColor="@color/colorDefaultNoteColor"
     app:cardCornerRadius="@dimen/_8sdp"
-    android:layout_marginEnd="@dimen/_4sdp"
-    android:layout_marginStart="@dimen/_4sdp"
-    android:layout_marginTop="@dimen/_4sdp"
-    android:layout_marginBottom="@dimen/_4sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_marginStart="@dimen/_6sdp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">

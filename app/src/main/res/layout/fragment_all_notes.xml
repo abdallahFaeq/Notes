@@ -95,6 +95,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="gone"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
         app:layout_constraintBottom_toTopOf="@id/quick_actions_layout"
         app:layout_constraintTop_toBottomOf="@id/search_layout" />
 

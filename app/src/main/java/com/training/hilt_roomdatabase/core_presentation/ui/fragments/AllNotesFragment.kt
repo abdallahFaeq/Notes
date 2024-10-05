@@ -24,7 +24,7 @@ class AllNotesFragment : Fragment() {
 
     private val noteAdapter : NoteAdapter by lazy {
         NoteAdapter{
-            var action = AllNotesFragmentDirections.actionAllNotesFragmentToUpdateNoteFragment(it)
+            var action = AllNotesFragmentDirections.actionAllNotesFragmentToAddNoteFragment(it)
             navigate(action)
         }
     }
@@ -51,7 +51,7 @@ class AllNotesFragment : Fragment() {
         allNotesViewModel.getAllNotes()
         observeToStates()
         binding.addNoteBtn.setOnClickListener{
-            navigate(AllNotesFragmentDirections.actionAllNotesFragmentToAddNoteFragment())
+            navigate(AllNotesFragmentDirections.actionAllNotesFragmentToAddNoteFragment(-1))
         }
     }
 
